@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أدوات الذكاء الاصطناعي المتقدمة</title>
+    <title>ChatAI - محادثات الذكاء الاصطناعي المتخصص</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4a6cf7;
-            --primary-dark: #3a5ce5;
-            --secondary: #6c757d;
-            --dark: #1d2144;
-            --light: #f8f9fa;
-            --success: #28a745;
-            --danger: #dc3545;
-            --warning: #ffc107;
-            --info: #17a2b8;
-            --gradient: linear-gradient(135deg, #4a6cf7 0%, #6a11cb 100%);
-            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --radius: 10px;
+            --primary: #6C63FF;
+            --primary-dark: #5a52d5;
+            --secondary: #FF6584;
+            --dark: #2A2D43;
+            --light: #F7F9FC;
+            --gray: #8C8EB2;
+            --success: #4CAF50;
+            --gradient: linear-gradient(135deg, #6C63FF 0%, #8B85FF 100%);
+            --shadow: 0 5px 20px rgba(108, 99, 255, 0.15);
+            --radius: 16px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Tajawal', sans-serif;
         }
 
         body {
-            background-color: #f5f7ff;
-            color: #333;
+            background-color: var(--light);
+            color: var(--dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
@@ -43,13 +43,12 @@
 
         /* Header Styles */
         header {
-            background: var(--gradient);
-            color: white;
-            padding: 15px 0;
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow);
         }
 
         .header-content {
@@ -61,9 +60,10 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 1.5rem;
-            font-weight: 700;
+            font-weight: 800;
+            color: var(--primary);
         }
 
         .logo i {
@@ -73,26 +73,28 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 30px;
         }
 
         nav a {
-            color: white;
+            color: var(--dark);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 12px;
+            border-radius: 8px;
         }
 
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+        nav a:hover, nav a.active {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
         }
 
         .mobile-menu {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--dark);
         }
 
         /* Hero Section */
@@ -138,7 +140,7 @@
 
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 14px 32px;
             background: white;
             color: var(--primary);
             border: none;
@@ -152,7 +154,7 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .btn-primary {
@@ -160,17 +162,201 @@
             color: white;
         }
 
-        /* Features Section */
-        .features {
-            padding: 100px 0;
+        /* Chat Section */
+        .chat-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .chat-container {
+            display: flex;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .chat-sidebar {
+            flex: 0 0 300px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            height: fit-content;
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 20px 25px;
+            background: var(--gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chat-header i {
+            font-size: 1.5rem;
+        }
+
+        .chat-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 25px;
+            height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+            background: #F0F2FF;
+            color: var(--dark);
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-input-area {
+            padding: 20px 25px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            resize: none;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+        }
+
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Specializations */
+        .specializations {
+            margin-bottom: 25px;
         }
 
         .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .specialization-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .specialization-btn {
+            padding: 12px 15px;
+            background: #F7F9FC;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            text-align: right;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .specialization-btn:hover {
+            background: #F0F2FF;
+            border-color: var(--primary);
+        }
+
+        .specialization-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .specialization-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Examples Section */
+        .examples-section {
+            padding: 80px 0;
+            background: #F7F9FC;
+        }
+
+        .section-header {
             text-align: center;
             margin-bottom: 60px;
         }
 
-        .section-title h2 {
+        .section-header h2 {
             font-size: 2.5rem;
             color: var(--dark);
             margin-bottom: 15px;
@@ -178,94 +364,59 @@
             display: inline-block;
         }
 
-        .section-title h2::after {
+        .section-header h2::after {
             content: '';
             position: absolute;
             bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 50%;
+            transform: translateX(50%);
             width: 80px;
             height: 4px;
             background: var(--gradient);
             border-radius: 2px;
         }
 
-        .section-title p {
-            color: var(--secondary);
+        .section-header p {
+            color: var(--gray);
             max-width: 600px;
             margin: 0 auto;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 2rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .feature-card p {
-            color: var(--secondary);
-            margin-bottom: 20px;
-        }
-
-        /* Tools Section */
-        .tools {
-            padding: 100px 0;
-            background-color: white;
-        }
-
-        .tools-grid {
+        .examples-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
         }
 
-        .tool-card {
+        .example-card {
             background: white;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s ease forwards;
         }
 
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .tool-header {
+        .example-card:nth-child(1) { animation-delay: 0.1s; }
+        .example-card:nth-child(2) { animation-delay: 0.2s; }
+        .example-card:nth-child(3) { animation-delay: 0.3s; }
+        .example-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .example-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.2);
+        }
+
+        .example-header {
             background: var(--gradient);
             color: white;
             padding: 20px;
@@ -274,69 +425,29 @@
             gap: 15px;
         }
 
-        .tool-header i {
+        .example-header i {
             font-size: 1.8rem;
         }
 
-        .tool-header h3 {
+        .example-header h3 {
             font-size: 1.3rem;
         }
 
-        .tool-body {
+        .example-body {
             padding: 25px;
         }
 
-        .tool-input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .tool-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tool-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        .tool-result {
-            margin-top: 20px;
+        .example-question {
+            background: #F0F2FF;
             padding: 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            min-height: 100px;
-            display: none;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 10px;
-        }
-
-        .loading i {
-            font-size: 1.5rem;
-            color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .example-answer {
+            color: var(--gray);
+            line-height: 1.7;
         }
 
         /* Footer */
@@ -428,12 +539,16 @@
 
         /* Responsive */
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
+            .chat-container {
+                flex-direction: column;
             }
             
-            nav ul {
-                gap: 15px;
+            .chat-sidebar {
+                flex: 1;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
             }
         }
 
@@ -444,13 +559,14 @@
             
             nav {
                 position: fixed;
-                top: 70px;
+                top: 80px;
                 right: -100%;
                 width: 80%;
-                height: calc(100vh - 70px);
-                background: var(--dark);
+                height: calc(100vh - 80px);
+                background: white;
                 transition: all 0.3s ease;
                 padding: 30px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
             }
             
             nav.active {
@@ -470,8 +586,12 @@
                 font-size: 1rem;
             }
             
-            .section-title h2 {
+            .section-header h2 {
                 font-size: 2rem;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -480,7 +600,7 @@
                 padding: 80px 0;
             }
             
-            .features, .tools {
+            .chat-section, .examples-section {
                 padding: 60px 0;
             }
             
@@ -489,7 +609,11 @@
             }
             
             .btn {
-                padding: 10px 25px;
+                padding: 12px 25px;
+            }
+            
+            .message {
+                max-width: 90%;
             }
         }
     </style>
@@ -501,16 +625,16 @@
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-robot"></i>
-                    <span>AI Tools Pro</span>
+                    <span>ChatAI</span>
                 </div>
                 <div class="mobile-menu">
                     <i class="fas fa-bars"></i>
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#features">المميزات</a></li>
-                        <li><a href="#tools">الأدوات</a></li>
+                        <li><a href="#home" class="active">الرئيسية</a></li>
+                        <li><a href="#chat">المحادثة</a></li>
+                        <li><a href="#examples">الأمثلة</a></li>
                         <li><a href="#about">من نحن</a></li>
                         <li><a href="#contact">اتصل بنا</a></li>
                     </ul>
@@ -523,160 +647,129 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>أدوات الذكاء الاصطناعي المتقدمة</h1>
-                <p>منصة شاملة تجمع أقوى أدوات الذكاء الاصطناعي في مكان واحد. استفد من أحدث التقنيات لتحسين إنتاجيتك وإبداعك.</p>
-                <a href="#tools" class="btn btn-primary">استكشف الأدوات</a>
+                <h1>محادثات ذكية مع الذكاء الاصطناعي المتخصص</h1>
+                <p>تحدث مع ذكاء اصطناعي متخصص في مختلف المجالات مثل التعليم، الطب، التكنولوجيا، والعديد من التخصصات الأخرى</p>
+                <a href="#chat" class="btn btn-primary">ابدأ المحادثة الآن</a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
+    <!-- Chat Section -->
+    <section class="chat-section" id="chat">
         <div class="container">
-            <div class="section-title">
-                <h2>مميزات منصتنا</h2>
-                <p>نوفر لك مجموعة من المميزات الفريدة التي تجعل تجربتك مع الذكاء الاصطناعي استثنائية</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <div class="specializations">
+                        <div class="section-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>التخصصات المتاحة</span>
+                        </div>
+                        <div class="specialization-list">
+                            <button class="specialization-btn active" data-prompt="أنت مساعد ذكي متخصص في تقديم إجابات عامة ومفيدة للمستخدمين.">
+                                <i class="fas fa-robot"></i>
+                                <span>المساعد العام</span>
+                            </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في التعليم ومساعدة الأشخاص في الدراسة وتقديم النصائح التعليمية.">
+                                <i class="fas fa-book-open"></i>
+                                <span>التعليم والدراسة</span>
+                            </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في الطب وتقديم النصائح الصحية العامة والإجابة على الاستفسارات الطبية.">
+                                <i class="fas fa-stethoscope"></i>
+                                <span>الطب والصحة</span>
+                            </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في التكنولوجيا والبرمجة وتقديم حلول للمشاكل التقنية.">
+                                <i class="fas fa-laptop-code"></i>
+                                <span>التكنولوجيا والبرمجة</span>
+                            </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في الأعمال والتسويق وتقديم النصائح الريادية.">
+                                <i class="fas fa-chart-line"></i>
+                                <span>الأعمال والتسويق</span>
+                            </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في التصميم والفنون وتقديم الإلهام والإرشادات الإبداعية.">
+                                <i class="fas fa-palette"></i>
+                                <span>التصميم والفنون</span>
+                            </button>
+                        </div>
                     </div>
-                    <h3>سرعة فائقة</h3>
-                    <p>معالجة سريعة للطلبات باستخدام أحدث تقنيات الذكاء الاصطناعي</p>
+                    <div class="specializations">
+                        <div class="section-title">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>نصائح للاستخدام</span>
+                        </div>
+                        <div class="tips">
+                            <p>• اختر التخصص المناسب لسؤالك للحصول على أفضل إجابة</p>
+                            <p>• اكتب أسئلتك بشكل واضح ومفصل</p>
+                            <p>• يمكنك تغيير التخصص في أي وقت</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <i class="fas fa-robot"></i>
+                        <h2>المساعد الذكي - التعليم والدراسة</h2>
                     </div>
-                    <h3>آمن ومحمي</h3>
-                    <p>بيئة آمنة لحماية بياناتك وخصوصيتك أثناء استخدام الأدوات</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-language"></i>
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message ai-message">
+                            مرحباً! أنا مساعدك الذكي المتخصص في التعليم والدراسة. كيف يمكنني مساعدتك اليوم؟
+                        </div>
                     </div>
-                    <h3>دعم اللغة العربية</h3>
-                    <p>جميع الأدوات مدعومة باللغة العربية بشكل كامل ومتقن</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync"></i>
+                    <div class="chat-input-area">
+                        <textarea class="chat-input" id="chat-input" placeholder="اكتب رسالتك هنا..." rows="1"></textarea>
+                        <button class="send-btn" id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </div>
-                    <h3>تحديثات مستمرة</h3>
-                    <p>نعمل باستمرار على تحسين الأدوات وإضافة ميزات جديدة</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Tools Section -->
-    <section class="tools" id="tools">
+    <!-- Examples Section -->
+    <section class="examples-section" id="examples">
         <div class="container">
-            <div class="section-title">
-                <h2>أدوات الذكاء الاصطناعي</h2>
-                <p>استخدم مجموعة أدواتنا المتقدمة لتحقيق أقصى استفادة من الذكاء الاصطناعي</p>
+            <div class="section-header">
+                <h2>أمثلة على المحادثات</h2>
+                <p>اطلع على نماذج من المحادثات مع الذكاء الاصطناعي في مختلف التخصصات</p>
             </div>
-            <div class="tools-grid">
-                <!-- Smart AI Tool -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <i class="fas fa-brain"></i>
-                        <h3>المساعد الذكي</h3>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-book-open"></i>
+                        <h3>التعليم والدراسة</h3>
                     </div>
-                    <div class="tool-body">
-                        <p>اطرح أي سؤال واحصل على إجابة ذكية وشاملة</p>
-                        <textarea class="tool-input" id="smartai-input" placeholder="اكتب سؤالك هنا..."></textarea>
-                        <button class="tool-btn" onclick="callSmartAI()">إرسال</button>
-                        <div class="loading" id="smartai-loading">
-                            <i class="fas fa-spinner"></i>
-                        </div>
-                        <div class="tool-result" id="smartai-result"></div>
+                    <div class="example-body">
+                        <div class="example-question">كيف يمكنني تنظيم وقتي للدراسة بشكل فعال؟</div>
+                        <div class="example-answer">لتنظيم وقت الدراسة بشكل فعال، أنصحك بإنشاء جدول زمني واقعي، تقسيم المواد إلى جلسات دراسة قصيرة (25-30 دقيقة) مع فترات راحة، تحديد الأولويات، واستخدام تقنيات مثل بومودورو. كما أنصح بالدراسة في مكان هادئ وخالٍ من المشتتات.</div>
                     </div>
                 </div>
-
-                <!-- Character AI Tool -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <i class="fas fa-user"></i>
-                        <h3>محادثة مع شخصية</h3>
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-stethoscope"></i>
+                        <h3>الطب والصحة</h3>
                     </div>
-                    <div class="tool-body">
-                        <p>تحدث مع شخصية مرشدة ذكية</p>
-                        <textarea class="tool-input" id="cai-input" placeholder="اكتب رسالتك هنا..."></textarea>
-                        <button class="tool-btn" onclick="callCharacterAI()">إرسال</button>
-                        <div class="loading" id="cai-loading">
-                            <i class="fas fa-spinner"></i>
-                        </div>
-                        <div class="tool-result" id="cai-result"></div>
+                    <div class="example-body">
+                        <div class="example-question">ما هي النصائح للحفاظ على صحة الجهاز الهضمي؟</div>
+                        <div class="example-answer">للحفاظ على صحة الجهاز الهضمي، أنصح بتناول الأطعمة الغنية بالألياف مثل الخضروات والفواكه، شرب كميات كافية من الماء، ممارسة الرياضة بانتظام، تناول البروبيوتيك، وتجنب الأطعمة المصنعة والدهون المشبعة. كما أنصح بتناول الطعام ببطء ومضغه جيداً.</div>
                     </div>
                 </div>
-
-                <!-- Image Generation Tool -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <i class="fas fa-image"></i>
-                        <h3>إنشاء الصور</h3>
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>التكنولوجيا والبرمجة</h3>
                     </div>
-                    <div class="tool-body">
-                        <p>أنشئ صورًا فريدة باستخدام الذكاء الاصطناعي</p>
-                        <input type="text" class="tool-input" id="sandboximg-input" placeholder="اكتب وصف الصورة التي تريد إنشاءها...">
-                        <button class="tool-btn" onclick="callImageGenerator()">إنشاء الصورة</button>
-                        <div class="loading" id="sandboximg-loading">
-                            <i class="fas fa-spinner"></i>
-                        </div>
-                        <div class="tool-result" id="sandboximg-result"></div>
+                    <div class="example-body">
+                        <div class="example-question">ما هي أفضل طريقة لتعلم البرمجة للمبتدئين؟</div>
+                        <div class="example-answer">لتعلم البرمجة للمبتدئين، أنصح بالبدء بلغة سهلة مثل Python، تعلم الأساسيات جيداً (المتغيرات، الشروط، الحلقات)، الممارسة المستمرة من خلال مشاريع صغيرة، الاستفادة من المصادر المجانية على الإنترنت، والانضمام لمجتمعات المبرمجين للحصول على الدعم والإجابة على الأسئلة.</div>
                     </div>
                 </div>
-
-                <!-- Video Generation Tool -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <i class="fas fa-video"></i>
-                        <h3>إنشاء الفيديو</h3>
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>الأعمال والتسويق</h3>
                     </div>
-                    <div class="tool-body">
-                        <p>أنشئ فيديو باستخدام الذكاء الاصطناعي</p>
-                        <input type="text" class="tool-input" id="txt2videov-input" placeholder="اكتب وصف الفيديو الذي تريد إنشاءه...">
-                        <button class="tool-btn" onclick="callVideoGenerator()">إنشاء الفيديو</button>
-                        <div class="loading" id="txt2videov-loading">
-                            <i class="fas fa-spinner"></i>
-                        </div>
-                        <div class="tool-result" id="txt2videov-result"></div>
-                    </div>
-                </div>
-
-                <!-- Writing Assistant Tool -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <i class="fas fa-edit"></i>
-                        <h3>مساعد الكتابة</h3>
-                    </div>
-                    <div class="tool-body">
-                        <p>احصل على مساعدة في كتابة النصوص والمحتوى</p>
-                        <textarea class="tool-input" id="writecream-input" placeholder="اكتف طلبك هنا..."></textarea>
-                        <button class="tool-btn" onclick="callWritingAssistant()">إرسال</button>
-                        <div class="loading" id="writecream-loading">
-                            <i class="fas fa-spinner"></i>
-                        </div>
-                        <div class="tool-result" id="writecream-result"></div>
-                    </div>
-                </div>
-
-                <!-- Sora Beta Tool -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <i class="fas fa-film"></i>
-                        <h3>Sora Beta</h3>
-                    </div>
-                    <div class="tool-body">
-                        <p>أداة متقدمة لإنشاء الفيديو باستخدام Sora</p>
-                        <input type="text" class="tool-input" id="sora-input" placeholder="اكتب وصف الفيديو...">
-                        <button class="tool-btn" onclick="callSoraBeta()">إنشاء الفيديو</button>
-                        <div class="loading" id="sora-loading">
-                            <i class="fas fa-spinner"></i>
-                        </div>
-                        <div class="tool-result" id="sora-result"></div>
+                    <div class="example-body">
+                        <div class="example-question">كيف يمكنني تطوير استراتيجية تسويق ناجحة لمشروعي الصغير؟</div>
+                        <div class="example-answer">لتطوير استراتيجية تسويق ناجحة، أنصحك بتحديد الجمهور المستهدف بدقة، دراسة المنافسين، تحديد نقاط القوة والضعف، استخدام وسائل التواصل الاجتماعي المناسبة لجمهورك، تقديم محتوى ذو قيمة، قياس النتائج باستمرار، والتكيف مع التغيرات. التركيز على بناء علاقات مع العملاء قد يكون أكثر فعالية من التسويق التقليدي.</div>
                     </div>
                 </div>
             </div>
@@ -688,8 +781,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>عن المنصة</h3>
-                    <p>منصة متكاملة تقدم مجموعة من أدوات الذكاء الاصطناعي المتقدمة لمساعدة المستخدمين في مختلف المجالات.</p>
+                    <h3>عن ChatAI</h3>
+                    <p>منصة متكاملة تتيح لك التواصل مع ذكاء اصطناعي متخصص في مختلف المجالات لتلقي الإجابات والنصائح المفيدة.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -698,21 +791,21 @@
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h3>الأدوات</h3>
+                    <h3>التخصصات</h3>
                     <ul class="footer-links">
-                        <li><a href="#">المساعد الذكي</a></li>
-                        <li><a href="#">محادثة مع شخصية</a></li>
-                        <li><a href="#">إنشاء الصور</a></li>
-                        <li><a href="#">إنشاء الفيديو</a></li>
-                        <li><a href="#">مساعد الكتابة</a></li>
+                        <li><a href="#">التعليم والدراسة</a></li>
+                        <li><a href="#">الطب والصحة</a></li>
+                        <li><a href="#">التكنولوجيا والبرمجة</a></li>
+                        <li><a href="#">الأعمال والتسويق</a></li>
+                        <li><a href="#">التصميم والفنون</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>روابط سريعة</h3>
                     <ul class="footer-links">
                         <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#features">المميزات</a></li>
-                        <li><a href="#tools">الأدوات</a></li>
+                        <li><a href="#chat">المحادثة</a></li>
+                        <li><a href="#examples">الأمثلة</a></li>
                         <li><a href="#about">من نحن</a></li>
                         <li><a href="#contact">اتصل بنا</a></li>
                     </ul>
@@ -720,14 +813,14 @@
                 <div class="footer-column">
                     <h3>اتصل بنا</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-envelope"></i> info@ai-tools.com</li>
+                        <li><i class="fas fa-envelope"></i> info@chatai.com</li>
                         <li><i class="fas fa-phone"></i> +966 123 456 789</li>
                         <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>جميع الحقوق محفوظة &copy; 2023 AI Tools Pro</p>
+                <p>جميع الحقوق محفوظة &copy; 2023 ChatAI</p>
             </div>
         </div>
     </footer>
@@ -745,67 +838,128 @@
             });
         });
 
-        // API Functions
-        async function callAPI(url, inputId, resultId, loadingId) {
-            const input = document.getElementById(inputId).value;
-            const resultElement = document.getElementById(resultId);
-            const loadingElement = document.getElementById(loadingId);
-            
-            if (!input.trim()) {
-                alert('يرجى إدخال النص المطلوب');
-                return;
+        // Specialization Buttons
+        let currentPrompt = "أنت مساعد ذكي متخصص في تقديم إجابات عامة ومفيدة للمستخدمين.";
+        
+        document.querySelectorAll('.specialization-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.specialization-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Update current prompt
+                currentPrompt = this.getAttribute('data-prompt');
+                
+                // Update chat header
+                const specializationName = this.querySelector('span').textContent;
+                document.querySelector('.chat-header h2').textContent = `المساعد الذكي - ${specializationName}`;
+            });
+        });
+
+        // Chat Functionality
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Send message on button click
+        sendBtn.addEventListener('click', sendMessage);
+
+        // Send message on Enter key (but allow Shift+Enter for new line)
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
             }
+        });
+
+        async function sendMessage() {
+            const message = chatInput.value.trim();
             
-            // Show loading
-            resultElement.style.display = 'none';
-            loadingElement.style.display = 'block';
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessage(message, 'user');
+            
+            // Clear input
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+            
+            // Show loading indicator
+            const loadingMessage = addMessage('جاري تحضير الإجابة...', 'ai');
+            loadingMessage.classList.add('loading');
             
             try {
-                const response = await fetch(url + encodeURIComponent(input));
-                const data = await response.json();
+                // Call API
+                const response = await callChatAPI(message);
                 
-                // Hide loading and show result
-                loadingElement.style.display = 'none';
-                resultElement.style.display = 'block';
+                // Remove loading message
+                loadingMessage.remove();
                 
-                if (data.result) {
-                    resultElement.innerHTML = `<p>${data.result}</p>`;
-                } else if (data.response) {
-                    resultElement.innerHTML = `<p>${data.response}</p>`;
-                } else {
-                    resultElement.innerHTML = `<p>تمت المعالجة بنجاح. تحقق من وحدة التحكم لمزيد من التفاصيل.</p>`;
-                }
+                // Add AI response
+                addMessage(response, 'ai');
             } catch (error) {
-                loadingElement.style.display = 'none';
-                resultElement.style.display = 'block';
-                resultElement.innerHTML = `<p style="color: var(--danger)">حدث خطأ أثناء الاتصال بالخادم: ${error.message}</p>`;
+                // Remove loading message
+                loadingMessage.remove();
+                
+                // Show error message
+                addMessage('عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.', 'ai');
+                console.error('API Error:', error);
             }
         }
 
-        // Specific API functions
-        function callSmartAI() {
-            callAPI('https://obito-mr-apis.vercel.app/api/ai/smartai?text=', 'smartai-input', 'smartai-result', 'smartai-loading');
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+            messageDiv.textContent = text;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return messageDiv;
         }
 
-        function callCharacterAI() {
-            callAPI('https://obito-mr-apis.vercel.app/api/ai/cai?prompt=شخصية%20مرشدة&text=', 'cai-input', 'cai-result', 'cai-loading');
+        async function callChatAPI(message) {
+            const url = `https://obito-mr-apis.vercel.app/api/ai/writecream?prompt=${encodeURIComponent(currentPrompt)}&txt=${encodeURIComponent(message)}`;
+            
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            if (data.reply) {
+                return data.reply;
+            } else {
+                throw new Error('No reply from API');
+            }
         }
 
-        function callImageGenerator() {
-            callAPI('https://obito-mr-apis.vercel.app/api/ai/sandboximg?prompt=', 'sandboximg-input', 'sandboximg-result', 'sandboximg-loading');
-        }
+        // Scroll animations for example cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        function callVideoGenerator() {
-            callAPI('https://obito-mr-apis.vercel.app/api/ai/txt2videov?txt=', 'txt2videov-input', 'txt2videov-result', 'txt2videov-loading');
-        }
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
 
-        function callWritingAssistant() {
-            callAPI('https://obito-mr-apis.vercel.app/api/ai/writecream?prompt=أنت%20مساعد%20ذكي%20اسمك%20أوبيتو&txt=', 'writecream-input', 'writecream-result', 'writecream-loading');
-        }
-
-        function callSoraBeta() {
-            callAPI('https://obito-mr-apis.vercel.app/api/ai/sora_beta?prompt=', 'sora-input', 'sora-result', 'sora-loading');
-        }
+        document.querySelectorAll('.example-card').forEach(card => {
+            card.style.animationPlayState = 'paused';
+            observer.observe(card);
+        });
     </script>
 </body>
 </html>
