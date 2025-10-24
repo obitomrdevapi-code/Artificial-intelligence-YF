@@ -535,6 +535,28 @@
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-info a:hover {
+            opacity: 1;
+            color: var(--primary);
         }
 
         /* Responsive */
@@ -689,6 +711,22 @@
                                 <i class="fas fa-palette"></i>
                                 <span>التصميم والفنون</span>
                             </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في القانون والشؤون القانونية وتقديم النصائح القانونية العامة.">
+                                <i class="fas fa-gavel"></i>
+                                <span>القانون والشؤون القانونية</span>
+                            </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في العلوم والبحث العلمي وتقديم المعلومات العلمية الدقيقة.">
+                                <i class="fas fa-flask"></i>
+                                <span>العلوم والبحث العلمي</span>
+                            </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في الأدب واللغة العربية وتقديم النصائح الأدبية واللغوية.">
+                                <i class="fas fa-pen-fancy"></i>
+                                <span>الأدب واللغة العربية</span>
+                            </button>
+                            <button class="specialization-btn" data-prompt="أنت ذكاء اصطناعي متخصص في الرياضيات والتحليل الرياضي وتقديم حلول للمسائل الرياضية.">
+                                <i class="fas fa-calculator"></i>
+                                <span>الرياضيات والتحليل</span>
+                            </button>
                         </div>
                     </div>
                     <div class="specializations">
@@ -706,11 +744,11 @@
                 <div class="chat-main">
                     <div class="chat-header">
                         <i class="fas fa-robot"></i>
-                        <h2>المساعد الذكي - التعليم والدراسة</h2>
+                        <h2>المساعد الذكي - المساعد العام</h2>
                     </div>
                     <div class="chat-messages" id="chat-messages">
                         <div class="message ai-message">
-                            مرحباً! أنا مساعدك الذكي المتخصص في التعليم والدراسة. كيف يمكنني مساعدتك اليوم؟
+                            مرحباً! أنا مساعدك الذكي المتخصص في تقديم إجابات عامة ومفيدة. كيف يمكنني مساعدتك اليوم؟
                         </div>
                     </div>
                     <div class="chat-input-area">
@@ -798,6 +836,10 @@
                         <li><a href="#">التكنولوجيا والبرمجة</a></li>
                         <li><a href="#">الأعمال والتسويق</a></li>
                         <li><a href="#">التصميم والفنون</a></li>
+                        <li><a href="#">القانون والشؤون القانونية</a></li>
+                        <li><a href="#">العلوم والبحث العلمي</a></li>
+                        <li><a href="#">الأدب واللغة العربية</a></li>
+                        <li><a href="#">الرياضيات والتحليل</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -812,15 +854,24 @@
                 </div>
                 <div class="footer-column">
                     <h3>اتصل بنا</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-envelope"></i> info@chatai.com</li>
-                        <li><i class="fas fa-phone"></i> +966 123 456 789</li>
-                        <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
-                    </ul>
+                    <div class="contact-info">
+                        <a href="tel:+212721543660">
+                            <i class="fas fa-phone"></i>
+                            رقم الواتساب: +212721543660
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VbAzK2BId7nL77L0Vk2P" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            قناة الواتساب
+                        </a>
+                        <a href="mailto:younesslahmini00@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                            الإيميل: younesslahmini00@gmail.com
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
-                <p>جميع الحقوق محفوظة &copy; 2023 ChatAI</p>
+                <p>جميع الحقوق محفوظة &copy; 2023 ChatAI - تم التطوير بواسطة فريق متخصص في تقنيات الذكاء الاصطناعي</p>
             </div>
         </div>
     </footer>
@@ -852,6 +903,16 @@
                 
                 const specializationName = this.querySelector('span').textContent;
                 document.querySelector('.chat-header h2').textContent = `المساعد الذكي - ${specializationName}`;
+                
+                // مسح المحادثة السابقة
+                const chatMessages = document.getElementById('chat-messages');
+                chatMessages.innerHTML = '';
+                
+                // إضافة رسالة ترحيب جديدة
+                const welcomeMessage = document.createElement('div');
+                welcomeMessage.classList.add('message', 'ai-message');
+                welcomeMessage.textContent = `مرحباً! أنا مساعدك الذكي المتخصص في ${specializationName}. كيف يمكنني مساعدتك اليوم؟`;
+                chatMessages.appendChild(welcomeMessage);
             });
         });
 
