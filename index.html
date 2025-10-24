@@ -814,7 +814,7 @@
                     <h3>اتصل بنا</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-envelope"></i> info@chatai.com</li>
-                        <li><i class="fas fa-phone"></i> +966 123 456 789</li>
+                        <li><i class="fas fa-phone"></i> +212662023605</li>
                         <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
                     </ul>
                 </div>
@@ -843,18 +843,13 @@
         
         document.querySelectorAll('.specialization-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove active class from all buttons
                 document.querySelectorAll('.specialization-btn').forEach(b => {
                     b.classList.remove('active');
                 });
                 
-                // Add active class to clicked button
                 this.classList.add('active');
-                
-                // Update current prompt
                 currentPrompt = this.getAttribute('data-prompt');
                 
-                // Update chat header
                 const specializationName = this.querySelector('span').textContent;
                 document.querySelector('.chat-header h2').textContent = `المساعد الذكي - ${specializationName}`;
             });
@@ -874,7 +869,7 @@
         // Send message on button click
         sendBtn.addEventListener('click', sendMessage);
 
-        // Send message on Enter key (but allow Shift+Enter for new line)
+        // Send message on Enter key
         chatInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -887,31 +882,18 @@
             
             if (!message) return;
             
-            // Add user message to chat
             addMessage(message, 'user');
-            
-            // Clear input
             chatInput.value = '';
             chatInput.style.height = 'auto';
             
-            // Show loading indicator
             const loadingMessage = addMessage('جاري تحضير الإجابة...', 'ai');
-            loadingMessage.classList.add('loading');
             
             try {
-                // Call API
                 const response = await callChatAPI(message);
-                
-                // Remove loading message
                 loadingMessage.remove();
-                
-                // Add AI response
                 addMessage(response, 'ai');
             } catch (error) {
-                // Remove loading message
                 loadingMessage.remove();
-                
-                // Show error message
                 addMessage('عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.', 'ai');
                 console.error('API Error:', error);
             }
@@ -932,23 +914,17 @@
         async function callChatAPI(message) {
             const url = `https://obito-mr-apis.vercel.app/api/ai/writecream?prompt=${encodeURIComponent(currentPrompt)}&txt=${encodeURIComponent(message)}`;
             
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.code === 0 && data.reply) {
+                    return data.reply;
+                } else {
+                    throw new Error('No reply from API');
                 }
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            
-            if (data.code === 0 && data.reply) {
-                return data.reply;
-            } else {
-                throw new Error('No reply from API');
+            } catch (error) {
+                throw new Error('فشل في الاتصال بالخادم');
             }
         }
 
