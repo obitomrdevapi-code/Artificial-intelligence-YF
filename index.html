@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات الذكاء الاصطناعي المتقدمة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6cf7;
+            --primary-dark: #3a5ce5;
+            --secondary: #6c757d;
+            --dark: #1d2144;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --gradient: linear-gradient(135deg, #4a6cf7 0%, #6a11cb 100%);
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --radius: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Tools Section */
+        .tools {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-header {
+            background: var(--gradient);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tool-header i {
+            font-size: 1.8rem;
+        }
+
+        .tool-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .tool-body {
+            padding: 25px;
+        }
+
+        .tool-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .tool-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .tool-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            min-height: 100px;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .loading i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-column p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-right: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: var(--dark);
+                transition: all 0.3s ease;
+                padding: 30px;
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .features, .tools {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Tools Pro</span>
+                </div>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#features">المميزات</a></li>
+                        <li><a href="#tools">الأدوات</a></li>
+                        <li><a href="#about">من نحن</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>أدوات الذكاء الاصطناعي المتقدمة</h1>
+                <p>منصة شاملة تجمع أقوى أدوات الذكاء الاصطناعي في مكان واحد. استفد من أحدث التقنيات لتحسين إنتاجيتك وإبداعك.</p>
+                <a href="#tools" class="btn btn-primary">استكشف الأدوات</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>مميزات منصتنا</h2>
+                <p>نوفر لك مجموعة من المميزات الفريدة التي تجعل تجربتك مع الذكاء الاصطناعي استثنائية</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>سرعة فائقة</h3>
+                    <p>معالجة سريعة للطلبات باستخدام أحدث تقنيات الذكاء الاصطناعي</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>آمن ومحمي</h3>
+                    <p>بيئة آمنة لحماية بياناتك وخصوصيتك أثناء استخدام الأدوات</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>دعم اللغة العربية</h3>
+                    <p>جميع الأدوات مدعومة باللغة العربية بشكل كامل ومتقن</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <h3>تحديثات مستمرة</h3>
+                    <p>نعمل باستمرار على تحسين الأدوات وإضافة ميزات جديدة</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools" id="tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>أدوات الذكاء الاصطناعي</h2>
+                <p>استخدم مجموعة أدواتنا المتقدمة لتحقيق أقصى استفادة من الذكاء الاصطناعي</p>
+            </div>
+            <div class="tools-grid">
+                <!-- Smart AI Tool -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>المساعد الذكي</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>اطرح أي سؤال واحصل على إجابة ذكية وشاملة</p>
+                        <textarea class="tool-input" id="smartai-input" placeholder="اكتب سؤالك هنا..."></textarea>
+                        <button class="tool-btn" onclick="callSmartAI()">إرسال</button>
+                        <div class="loading" id="smartai-loading">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="tool-result" id="smartai-result"></div>
+                    </div>
+                </div>
+
+                <!-- Character AI Tool -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-user"></i>
+                        <h3>محادثة مع شخصية</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>تحدث مع شخصية مرشدة ذكية</p>
+                        <textarea class="tool-input" id="cai-input" placeholder="اكتب رسالتك هنا..."></textarea>
+                        <button class="tool-btn" onclick="callCharacterAI()">إرسال</button>
+                        <div class="loading" id="cai-loading">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="tool-result" id="cai-result"></div>
+                    </div>
+                </div>
+
+                <!-- Image Generation Tool -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-image"></i>
+                        <h3>إنشاء الصور</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>أنشئ صورًا فريدة باستخدام الذكاء الاصطناعي</p>
+                        <input type="text" class="tool-input" id="sandboximg-input" placeholder="اكتب وصف الصورة التي تريد إنشاءها...">
+                        <button class="tool-btn" onclick="callImageGenerator()">إنشاء الصورة</button>
+                        <div class="loading" id="sandboximg-loading">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="tool-result" id="sandboximg-result"></div>
+                    </div>
+                </div>
+
+                <!-- Video Generation Tool -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-video"></i>
+                        <h3>إنشاء الفيديو</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>أنشئ فيديو باستخدام الذكاء الاصطناعي</p>
+                        <input type="text" class="tool-input" id="txt2videov-input" placeholder="اكتب وصف الفيديو الذي تريد إنشاءه...">
+                        <button class="tool-btn" onclick="callVideoGenerator()">إنشاء الفيديو</button>
+                        <div class="loading" id="txt2videov-loading">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="tool-result" id="txt2videov-result"></div>
+                    </div>
+                </div>
+
+                <!-- Writing Assistant Tool -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-edit"></i>
+                        <h3>مساعد الكتابة</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>احصل على مساعدة في كتابة النصوص والمحتوى</p>
+                        <textarea class="tool-input" id="writecream-input" placeholder="اكتف طلبك هنا..."></textarea>
+                        <button class="tool-btn" onclick="callWritingAssistant()">إرسال</button>
+                        <div class="loading" id="writecream-loading">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="tool-result" id="writecream-result"></div>
+                    </div>
+                </div>
+
+                <!-- Sora Beta Tool -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-film"></i>
+                        <h3>Sora Beta</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>أداة متقدمة لإنشاء الفيديو باستخدام Sora</p>
+                        <input type="text" class="tool-input" id="sora-input" placeholder="اكتب وصف الفيديو...">
+                        <button class="tool-btn" onclick="callSoraBeta()">إنشاء الفيديو</button>
+                        <div class="loading" id="sora-loading">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="tool-result" id="sora-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>عن المنصة</h3>
+                    <p>منصة متكاملة تقدم مجموعة من أدوات الذكاء الاصطناعي المتقدمة لمساعدة المستخدمين في مختلف المجالات.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>الأدوات</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">المساعد الذكي</a></li>
+                        <li><a href="#">محادثة مع شخصية</a></li>
+                        <li><a href="#">إنشاء الصور</a></li>
+                        <li><a href="#">إنشاء الفيديو</a></li>
+                        <li><a href="#">مساعد الكتابة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#features">المميزات</a></li>
+                        <li><a href="#tools">الأدوات</a></li>
+                        <li><a href="#about">من نحن</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>اتصل بنا</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> info@ai-tools.com</li>
+                        <li><i class="fas fa-phone"></i> +966 123 456 789</li>
+                        <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; 2023 AI Tools Pro</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('nav').classList.remove('active');
+            });
+        });
+
+        // API Functions
+        async function callAPI(url, inputId, resultId, loadingId) {
+            const input = document.getElementById(inputId).value;
+            const resultElement = document.getElementById(resultId);
+            const loadingElement = document.getElementById(loadingId);
+            
+            if (!input.trim()) {
+                alert('يرجى إدخال النص المطلوب');
+                return;
+            }
+            
+            // Show loading
+            resultElement.style.display = 'none';
+            loadingElement.style.display = 'block';
+            
+            try {
+                const response = await fetch(url + encodeURIComponent(input));
+                const data = await response.json();
+                
+                // Hide loading and show result
+                loadingElement.style.display = 'none';
+                resultElement.style.display = 'block';
+                
+                if (data.result) {
+                    resultElement.innerHTML = `<p>${data.result}</p>`;
+                } else if (data.response) {
+                    resultElement.innerHTML = `<p>${data.response}</p>`;
+                } else {
+                    resultElement.innerHTML = `<p>تمت المعالجة بنجاح. تحقق من وحدة التحكم لمزيد من التفاصيل.</p>`;
+                }
+            } catch (error) {
+                loadingElement.style.display = 'none';
+                resultElement.style.display = 'block';
+                resultElement.innerHTML = `<p style="color: var(--danger)">حدث خطأ أثناء الاتصال بالخادم: ${error.message}</p>`;
+            }
+        }
+
+        // Specific API functions
+        function callSmartAI() {
+            callAPI('https://obito-mr-apis.vercel.app/api/ai/smartai?text=', 'smartai-input', 'smartai-result', 'smartai-loading');
+        }
+
+        function callCharacterAI() {
+            callAPI('https://obito-mr-apis.vercel.app/api/ai/cai?prompt=شخصية%20مرشدة&text=', 'cai-input', 'cai-result', 'cai-loading');
+        }
+
+        function callImageGenerator() {
+            callAPI('https://obito-mr-apis.vercel.app/api/ai/sandboximg?prompt=', 'sandboximg-input', 'sandboximg-result', 'sandboximg-loading');
+        }
+
+        function callVideoGenerator() {
+            callAPI('https://obito-mr-apis.vercel.app/api/ai/txt2videov?txt=', 'txt2videov-input', 'txt2videov-result', 'txt2videov-loading');
+        }
+
+        function callWritingAssistant() {
+            callAPI('https://obito-mr-apis.vercel.app/api/ai/writecream?prompt=أنت%20مساعد%20ذكي%20اسمك%20أوبيتو&txt=', 'writecream-input', 'writecream-result', 'writecream-loading');
+        }
+
+        function callSoraBeta() {
+            callAPI('https://obito-mr-apis.vercel.app/api/ai/sora_beta?prompt=', 'sora-input', 'sora-result', 'sora-loading');
+        }
+    </script>
+</body>
+</html>
