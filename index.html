@@ -814,7 +814,7 @@
                     <h3>اتصل بنا</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-envelope"></i> info@chatai.com</li>
-                        <li><i class="fas fa-phone"></i> +212662023605</li>
+                        <li><i class="fas fa-phone"></i> +966 123 456 789</li>
                         <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
                     </ul>
                 </div>
@@ -915,7 +915,18 @@
             const url = `https://obito-mr-apis.vercel.app/api/ai/writecream?prompt=${encodeURIComponent(currentPrompt)}&txt=${encodeURIComponent(message)}`;
             
             try {
-                const response = await fetch(url);
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 
                 if (data.code === 0 && data.reply) {
@@ -924,7 +935,20 @@
                     throw new Error('No reply from API');
                 }
             } catch (error) {
-                throw new Error('فشل في الاتصال بالخادم');
+                // استخدام proxy لتجنب مشكلة CORS
+                try {
+                    const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`;
+                    const proxyResponse = await fetch(proxyUrl);
+                    const proxyData = await proxyResponse.json();
+                    
+                    if (proxyData.code === 0 && proxyData.reply) {
+                        return proxyData.reply;
+                    } else {
+                        throw new Error('No reply from proxy API');
+                    }
+                } catch (proxyError) {
+                    throw new Error('فشل في الاتصال بالخادم');
+                }
             }
         }
 
