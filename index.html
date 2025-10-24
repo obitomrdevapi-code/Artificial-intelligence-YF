@@ -932,10 +932,20 @@
         async function callChatAPI(message) {
             const url = `https://obito-mr-apis.vercel.app/api/ai/writecream?prompt=${encodeURIComponent(currentPrompt)}&txt=${encodeURIComponent(message)}`;
             
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const data = await response.json();
             
-            if (data.reply) {
+            if (data.code === 0 && data.reply) {
                 return data.reply;
             } else {
                 throw new Error('No reply from API');
